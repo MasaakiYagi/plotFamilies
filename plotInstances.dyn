@@ -1,0 +1,970 @@
+{
+  "Uuid": "33790953-9d0e-4c4b-9e27-227e2b095e1c",
+  "IsCustomNode": false,
+  "Description": "ドア、窓、柱を考慮して、部屋にデスクの列を生成します。出口までの距離、外側のビューなどを計算します。",
+  "Name": "機器搬入プロット",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [
+    {
+      "Id": "faeda4cb2a744190a4047060d8e2df26",
+      "Name": "Place Num",
+      "Type": "number",
+      "Value": "50",
+      "NumberType": "Double",
+      "Description": "数値を作成します。"
+    },
+    {
+      "Id": "1fcae8b367084df58f3949fa1a90b4b8",
+      "Name": "Global Rotation",
+      "Type": "number",
+      "Value": "90",
+      "NumberType": "Double",
+      "Description": "数値を作成します。"
+    }
+  ],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.FamilyInstance.ByPoint@Revit.Elements.FamilyType,Autodesk.DesignScript.Geometry.Point",
+      "Id": "8ba53405a5a0497d95b955e67d7b17e7",
+      "Inputs": [
+        {
+          "Id": "efdcc863bc8d4a9fab7cfe42dde2ca27",
+          "Name": "familyType",
+          "Description": "ファミリ タイプ。ファミリ記号とも呼ばれます。\n\nFamilyType",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9df22ecbbc2c444a9dfa9fbf49a7bb8b",
+          "Name": "point",
+          "Description": "点(メートル単位)。\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "49b8fb36d3c54fae90cee463dc75549c",
+          "Name": "FamilyInstance",
+          "Description": "FamilyInstance",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "FamilyType (Revit API では FamilySymbol と呼ばれる)とそのワールド空間での座標を指定して Revit ファミリ インスタンスを配置します\n\nFamilyInstance.ByPoint (familyType: FamilyType, point: Point): FamilyInstance"
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.FamilyTypes, DSRevitNodesUI",
+      "SelectedIndex": 18,
+      "NodeType": "ExtensionNode",
+      "Id": "d2fccdbcc23042078c7b021b9146145e",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "6f9878ed9f66434bb8aee82b647372f7",
+          "Name": "Family Type",
+          "Description": "選択した Family Type",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "ドキュメントで使用可能なすべてのファミリ タイプ。"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleInput, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "InputValue": 50.0,
+      "Id": "faeda4cb2a744190a4047060d8e2df26",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "aecdf18adecf44558ba56f919cbcbc48",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "数値を作成します。"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleInput, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "InputValue": 90.0,
+      "Id": "1fcae8b367084df58f3949fa1a90b4b8",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d890c751f4c844ae87d2d4aa41801099",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "数値を作成します。"
+    },
+    {
+      "ConcreteType": "Dynamo.Nodes.DSModelElementSelection, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "6fc63c65-e988-4d0f-abe5-3b8683b6a9be-00025034"
+      ],
+      "Id": "410c5e2cefb84db298322feac1f0542b",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "faad6f536f65426290dbf1ad020100d9",
+          "Name": "Element",
+          "Description": "選択した要素。",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Curve.PointAtParameter@double",
+      "Id": "ba83681c33ce4cc5baddab7b39aec672",
+      "Inputs": [
+        {
+          "Id": "9a2339cfcaea4471915043dc58b4133c",
+          "Name": "curve",
+          "Description": "Autodesk.DesignScript.Geometry.Curve",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1724279ecdd3431bad7e0ee4c79ae466",
+          "Name": "param",
+          "Description": "評価するパラメータ\n\ndouble\n既定値 : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b4e016ee55124becabed5b12313ba0b4",
+          "Name": "Point",
+          "Description": "点",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "StartParameter() から EndParameter() までの範囲内の指定されたパラメータで曲線上の点を取得します。\n\nCurve.PointAtParameter (param: double = 0): Point"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import clr\r\n\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import *\r\nfrom Autodesk.Revit.DB.Structure import *\r\n\r\nclr.AddReference('RevitAPIUI')\r\nfrom Autodesk.Revit.UI import *\r\n\r\nclr.AddReference('System')\r\nfrom System.Collections.Generic import List\r\nfrom System import Type\r\n\r\nclr.AddReference('RevitNodes')\r\nimport Revit\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\nclr.ImportExtensions(Revit.Elements)\r\n\r\nclr.AddReference('RevitServices')\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nuidoc=DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument\r\n\r\n#Preparing input from dynamo to revit\r\ngroupElem = UnwrapElement(IN[0])\r\ndependentElems = groupElem.GetDependentElements(None)\r\n\r\n\r\nOUT = [elem for elem in dependentElems if elem != groupElem.Id]",
+      "VariableInputPorts": true,
+      "Id": "bd7319a73d5a48dab16d8e655a7ed72c",
+      "Inputs": [
+        {
+          "Id": "61b8028d40234aa0a90030d99f1c8442",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "988b64794ae142b59b2e45e520825454",
+          "Name": "OUT",
+          "Description": "Python スクリプトの結果",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "埋め込み IronPython スクリプトを実行します。"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import clr\r\n\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import *\r\nfrom Autodesk.Revit.DB.Structure import *\r\n\r\nclr.AddReference('RevitAPIUI')\r\nfrom Autodesk.Revit.UI import *\r\n\r\nclr.AddReference('System')\r\nfrom System.Collections.Generic import List\r\nfrom System import Type\r\n\r\nclr.AddReference('RevitNodes')\r\nimport Revit\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\nclr.ImportExtensions(Revit.Elements)\r\n\r\nclr.AddReference('RevitServices')\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nuidoc=DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument\r\n\r\n#Preparing input from dynamo to revit\r\nelemIds = UnwrapElement(IN[0])\r\nelems = []\r\nfor elemId in elemIds:\r\n\tmodelCurve = doc.GetElement(elemId)\r\n\telems.append(modelCurve)\r\n\r\n\r\nOUT = elems",
+      "VariableInputPorts": true,
+      "Id": "edbb1aae477a45f2be11b59b36d4344a",
+      "Inputs": [
+        {
+          "Id": "9016b4b487234304a30cde3be732e79c",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "791f385b212a47e18c066554232353ea",
+          "Name": "OUT",
+          "Description": "Python スクリプトの結果",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "埋め込み IronPython スクリプトを実行します。"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.Element.Curves",
+      "Id": "155a8ab75a6c45c7bef8a1ea58d7e4a4",
+      "Inputs": [
+        {
+          "Id": "55963222df3c42509ae7226ffb8cffe2",
+          "Name": "element",
+          "Description": "Revit.Elements.Element",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5d5867886d0c4834932029873debe3ba",
+          "Name": "Curve[]",
+          "Description": "Curve[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "この要素の曲線\n\nElement.Curves: Curve[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "0.0..1.0..#x;",
+      "Id": "3f72dc9cde2c46ccae62eb16cae61f72",
+      "Inputs": [
+        {
+          "Id": "8414c3bc2f1f4814827a5bf4dcbd0265",
+          "Name": "x",
+          "Description": "x",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9b84b09c5b8f41c4a8d46e45a30bad1a",
+          "Name": "",
+          "Description": "行 1 の式の値",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "DesignScript のコードを直接作成することができます。"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves@Autodesk.DesignScript.Geometry.Curve[],double",
+      "Id": "7358e24287b74988839c26c7a85972fa",
+      "Inputs": [
+        {
+          "Id": "a7c5d3afc1ac4f12946a0d8059609c7e",
+          "Name": "curves",
+          "Description": "ポリカーブに結合する曲線\n\nCurve[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b837fce39c244137ba626042d5e5702d",
+          "Name": "joinTolerance",
+          "Description": "結合する曲線間で使用できるギャップのサイズを判断するための許容値\n\ndouble\n既定値 : 0.001",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d671834ec33744da87e167061d154b2f",
+          "Name": "PolyCurve",
+          "Description": "PolyCurve",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "曲線を結合してポリカーブを作成します。接続性の必要に応じて曲線を反転します。優先される結合の許容値を 1e-6 から 1e-3 までの単位で選択します。\n\nPolyCurve.ByJoinedCurves (curves: Curve[], joinTolerance: double = 0.001): PolyCurve"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.Flatten@var[]..[],int",
+      "Id": "2761e114618f495ea3954b32d7fd58db",
+      "Inputs": [
+        {
+          "Id": "c8aa8563219741988781d6a944eb7a3e",
+          "Name": "list",
+          "Description": "フラットにするリスト。\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "228a233e343c40d4a2a4d0797bdc8104",
+          "Name": "amt",
+          "Description": "削除するネストのレイヤ。\n\nint\n既定値 : -1",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "e74c53137b4c44798e9a5d671892047e",
+          "Name": "var[]..[]",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "ネストされたリストのリストを、指定された量だけフラットにします。\n\nList.Flatten (list: var[]..[], amt: int = -1): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Curve.NormalAtParameter@double",
+      "Id": "44af48ff84ba4d52b3b6a5c61a8524b0",
+      "Inputs": [
+        {
+          "Id": "3bded7731eeb4e0d992d95da925283a3",
+          "Name": "curve",
+          "Description": "Autodesk.DesignScript.Geometry.Curve",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "7014dc6ef02440d9bb53dcab88562a56",
+          "Name": "param",
+          "Description": "評価するパラメータ\n\ndouble\n既定値 : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0ab738bf9a34493284034fd4359c26fd",
+          "Name": "Vector",
+          "Description": "パラメータ上で曲線に直交するベクトル",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "StartParameter() から EndParameter() までの範囲内の指定されたパラメータで曲線に直交するベクトルを取得します。\n\nCurve.NormalAtParameter (param: double = 0): Vector"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.FamilyInstance.SetRotation@double",
+      "Id": "91c8421f562a403da7e9d081ba3a50f2",
+      "Inputs": [
+        {
+          "Id": "22d2d02c04284aaea27c5ceb882aeef3",
+          "Name": "familyInstance",
+          "Description": "Revit.Elements.FamilyInstance",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "41330f3219e8427c9aa95ea7eb91dc4a",
+          "Name": "degree",
+          "Description": "Z を中心としたオイラー角。\n\ndouble",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f332de76b7164fb887fb17ba6814b414",
+          "Name": "FamilyInstance",
+          "Description": "作成されたファミリ インスタンス。",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "ローカルの Z 軸を中心として、ファミリ インスタンスのオイラー角を設定します。\n\nFamilyInstance.SetRotation (degree: double): FamilyInstance"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#常に回転角度が最小になるように法線ベクトルを補正する\r\n#つまり、法線候補は常に2つあるが、直前のベクトルとの内関が1に近い方を採用する処理\r\n\r\n# Python 標準ライブラリおよび DesignScript ライブラリをロード\r\nimport sys\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n# このノードへの入力は、リスト形式で IN 変数に格納されます。\r\nvecs = IN[0]\r\nnew_vecs = []\r\n\r\n# この行の下にコードを配置します\r\nnew_vecs.append(vecs[0])\r\nfor i in range(len(vecs)):\r\n\tif i != 0:\r\n\t\tcand_vec = Vector.Scale(vecs[i],-1)\r\n\t\tif vecs[i].Dot(new_vecs[i-1]) > cand_vec.Dot(new_vecs[i-1]):\r\n\t\t\tnew_vecs.append(vecs[i])\r\n\t\telse:\r\n\t\t\tnew_vecs.append(cand_vec)\r\n\t\t\r\n\r\n# 出力を OUT 変数に割り当てます。\r\nOUT = new_vecs",
+      "VariableInputPorts": true,
+      "Id": "1dff19898f8b4d67a3cc51eb568bee04",
+      "Inputs": [
+        {
+          "Id": "47c08de9e15d4681896f42a47de95f8e",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b68a0683cc5e47599dbe80971f2b0600",
+          "Name": "OUT",
+          "Description": "Python スクリプトの結果",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "埋め込み IronPython スクリプトを実行します。"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Python 標準ライブラリおよび DesignScript ライブラリをロード\r\nimport sys\r\nimport clr\r\nimport math\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n# このノードへの入力は、リスト形式で IN 変数に格納されます。\r\nnormals = IN[0]\r\nstd = normals[0]\r\nrel_angles = []\r\n\r\n# この行の下にコードを配置します\r\ndef acos_deg(x):\r\n\tif x>1:\r\n\t\tx=1\r\n\tif x<-1:\r\n\t\tx=-1\r\n\treturn math.acos(x)/(2*math.pi)*360\r\n\r\n#ひとつ前のポイントからの相対回転角度を計算\r\nrel_angles.append(acos_deg(normals[0].Dot(normals[0])))\r\n\r\nfor i in range(len(normals)-1):\r\n#for normal in normals:\r\n\tcross = Vector.Cross(normals[i],normals[i+1])\r\n\tif cross.Z == 0:\r\n\t \tcrossdir = 1\r\n\telse:\r\n\t\tcrossdir = cross.Z/abs(cross.Z)*(-1)\r\n\trel_angles.append(crossdir*acos_deg(normals[i].Dot(normals[i+1])))\r\n\t#ratios.append(normal.Dot(std))\r\n\r\n\r\n# 出力を OUT 変数に割り当てます。\r\nOUT = rel_angles",
+      "VariableInputPorts": true,
+      "Id": "ce9a23549c5845bdb04b5f9b34df4310",
+      "Inputs": [
+        {
+          "Id": "1ff91ac654c14edfb346f0dcb002c859",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8f3ecb344f3c4df5be17156951b1ce8b",
+          "Name": "OUT",
+          "Description": "Python スクリプトの結果",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "埋め込み IronPython スクリプトを実行します。"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "+@var[]..[],var[]..[]",
+      "Id": "21288dc1b1f14b16bb572e596855ea66",
+      "Inputs": [
+        {
+          "Id": "691e05a400d8439db365c779cc82eb4a",
+          "Name": "x",
+          "Description": "x 値。\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "7f320f74b3e342868fbf3fd8314ba0a0",
+          "Name": "y",
+          "Description": "y 値。\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "bd4fe8c18116460a89852a398d61645d",
+          "Name": "var[]..[]",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "y に x を 加算します。\n\n+ (x: var[]..[], y: var[]..[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Python 標準ライブラリおよび DesignScript ライブラリをロード\r\nimport sys\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n# このノードへの入力は、リスト形式で IN 変数に格納されます。\r\nangles = IN[0]\r\nsum_angle = 0\r\nsum_angles = []\r\n\r\n# この行の下にコードを配置します\r\nfor angle in angles:\r\n\tsum_angle += angle\r\n\tsum_angles.append(sum_angle)\r\n\r\n\r\n# 出力を OUT 変数に割り当てます。\r\nOUT = sum_angles",
+      "VariableInputPorts": true,
+      "Id": "2c257df0edc146da84a30e8d40a3eabe",
+      "Inputs": [
+        {
+          "Id": "c2d307b143e94856a5fcad53862640d3",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9efea819962a4665be1dadebc5888873",
+          "Name": "OUT",
+          "Description": "Python スクリプトの結果",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "埋め込み IronPython スクリプトを実行します。"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "49b8fb36d3c54fae90cee463dc75549c",
+      "End": "22d2d02c04284aaea27c5ceb882aeef3",
+      "Id": "3f2cdb8c205043f7b52e0f12ced6d2f9"
+    },
+    {
+      "Start": "6f9878ed9f66434bb8aee82b647372f7",
+      "End": "efdcc863bc8d4a9fab7cfe42dde2ca27",
+      "Id": "584717745a20421e8ab8a44d781255b5"
+    },
+    {
+      "Start": "aecdf18adecf44558ba56f919cbcbc48",
+      "End": "8414c3bc2f1f4814827a5bf4dcbd0265",
+      "Id": "305d068926f943d09fbc2c410ee8d77a"
+    },
+    {
+      "Start": "d890c751f4c844ae87d2d4aa41801099",
+      "End": "7f320f74b3e342868fbf3fd8314ba0a0",
+      "Id": "d779048235f140ec94f867fc30ae2b8d"
+    },
+    {
+      "Start": "faad6f536f65426290dbf1ad020100d9",
+      "End": "61b8028d40234aa0a90030d99f1c8442",
+      "Id": "e63c560da9cd4896849d11d6b1852c57"
+    },
+    {
+      "Start": "b4e016ee55124becabed5b12313ba0b4",
+      "End": "9df22ecbbc2c444a9dfa9fbf49a7bb8b",
+      "Id": "15b581d2e7e64b2e9ec0c93b59293e41"
+    },
+    {
+      "Start": "988b64794ae142b59b2e45e520825454",
+      "End": "9016b4b487234304a30cde3be732e79c",
+      "Id": "b41345dfcd844fcf8524d75647586a3a"
+    },
+    {
+      "Start": "791f385b212a47e18c066554232353ea",
+      "End": "55963222df3c42509ae7226ffb8cffe2",
+      "Id": "49a7dd712e4341a6b9bdb1c15810465c"
+    },
+    {
+      "Start": "5d5867886d0c4834932029873debe3ba",
+      "End": "c8aa8563219741988781d6a944eb7a3e",
+      "Id": "ba3361f4db844971b69a6018323ad144"
+    },
+    {
+      "Start": "9b84b09c5b8f41c4a8d46e45a30bad1a",
+      "End": "1724279ecdd3431bad7e0ee4c79ae466",
+      "Id": "a045b66957be42668864ff85268c64b5"
+    },
+    {
+      "Start": "9b84b09c5b8f41c4a8d46e45a30bad1a",
+      "End": "7014dc6ef02440d9bb53dcab88562a56",
+      "Id": "7091b86649ea49979af481334b3f1d4d"
+    },
+    {
+      "Start": "d671834ec33744da87e167061d154b2f",
+      "End": "9a2339cfcaea4471915043dc58b4133c",
+      "Id": "ecd53c7132c14afebae2146dd4d8e4d2"
+    },
+    {
+      "Start": "d671834ec33744da87e167061d154b2f",
+      "End": "3bded7731eeb4e0d992d95da925283a3",
+      "Id": "5dc190cb193f406f911a70ff1e797a93"
+    },
+    {
+      "Start": "e74c53137b4c44798e9a5d671892047e",
+      "End": "a7c5d3afc1ac4f12946a0d8059609c7e",
+      "Id": "5c82e34654c947c7b3173495674ca788"
+    },
+    {
+      "Start": "0ab738bf9a34493284034fd4359c26fd",
+      "End": "47c08de9e15d4681896f42a47de95f8e",
+      "Id": "3a5d0851c81e4571bd909742936b49b4"
+    },
+    {
+      "Start": "b68a0683cc5e47599dbe80971f2b0600",
+      "End": "1ff91ac654c14edfb346f0dcb002c859",
+      "Id": "4a3bec19ab2e4cefa574bab0bb48a168"
+    },
+    {
+      "Start": "8f3ecb344f3c4df5be17156951b1ce8b",
+      "End": "c2d307b143e94856a5fcad53862640d3",
+      "Id": "57c4e002d0534f02ab76540137a8d579"
+    },
+    {
+      "Start": "bd4fe8c18116460a89852a398d61645d",
+      "End": "41330f3219e8427c9aa95ea7eb91dc4a",
+      "Id": "41653fb1728a4cbfac3b1565cf735cfb"
+    },
+    {
+      "Start": "9efea819962a4665be1dadebc5888873",
+      "End": "691e05a400d8439db365c779cc82eb4a",
+      "Id": "f6dad01413784360a3bac86315f5b718"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.3.8810",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "背景プレビュー",
+      "EyeX": -442.56839244395269,
+      "EyeY": 10561.115203947698,
+      "EyeZ": -4714.8645992343181,
+      "LookX": -153.5043469649072,
+      "LookY": -10433.06898658419,
+      "LookZ": 2380.621648204889,
+      "UpX": 0.064344700852304232,
+      "UpY": -0.00872653549837385,
+      "UpZ": -0.99788957658171018
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "FamilyInstance.ByPoint",
+        "Id": "8ba53405a5a0497d95b955e67d7b17e7",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1741.0872664534131,
+        "Y": 320.94442388392304
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Family Type",
+        "Id": "d2fccdbcc23042078c7b021b9146145e",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -103.85730334657501,
+        "Y": 290.81128233573617
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Place Num",
+        "Id": "faeda4cb2a744190a4047060d8e2df26",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -95.9153041992397,
+        "Y": 115.52235224830198
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Global Rotation",
+        "Id": "1fcae8b367084df58f3949fa1a90b4b8",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -100.38623126073935,
+        "Y": 210.75703480370819
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "搬入経路線分グループ選択",
+        "Id": "410c5e2cefb84db298322feac1f0542b",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -97.474767091827971,
+        "Y": -3.4473034300774543
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Curve.PointAtParameter",
+        "Id": "ba83681c33ce4cc5baddab7b39aec672",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1422.46095507448,
+        "Y": 197.37511763922103
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "dependend elem ids",
+        "Id": "bd7319a73d5a48dab16d8e655a7ed72c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 223.02210633461954,
+        "Y": -49.708983355472824
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "dependend elems",
+        "Id": "edbb1aae477a45f2be11b59b36d4344a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 390.95285300774339,
+        "Y": -53.581943394476724
+      },
+      {
+        "ShowGeometry": false,
+        "Name": "Element.Curves",
+        "Id": "155a8ab75a6c45c7bef8a1ea58d7e4a4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 556.42113865146121,
+        "Y": -54.335696094676507
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "3f72dc9cde2c46ccae62eb16cae61f72",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1058.1304404120901,
+        "Y": 158.17134642595175
+      },
+      {
+        "ShowGeometry": false,
+        "Name": "PolyCurve.ByJoinedCurves",
+        "Id": "7358e24287b74988839c26c7a85972fa",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1033.4186678296107,
+        "Y": -55.02487366464814
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List.Flatten",
+        "Id": "2761e114618f495ea3954b32d7fd58db",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 795.6307935193239,
+        "Y": -52.528413041968008
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "法線ベクトルの取得",
+        "Id": "44af48ff84ba4d52b3b6a5c61a8524b0",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1544.3390133591681,
+        "Y": -99.00229632219731
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "FamilyInstance.SetRotation",
+        "Id": "91c8421f562a403da7e9d081ba3a50f2",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2928.5916695622091,
+        "Y": 7.3280118333371433
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "法線ベクトルの補正",
+        "Id": "1dff19898f8b4d67a3cc51eb568bee04",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1829.6387468672231,
+        "Y": -144.79846211337406
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "相対回転角度計算",
+        "Id": "ce9a23549c5845bdb04b5f9b34df4310",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2116.4360912570696,
+        "Y": -187.10127201818486
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Attach grobal rotation",
+        "Id": "21288dc1b1f14b16bb572e596855ea66",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2626.3486410432556,
+        "Y": -127.53358318057948
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "2c257df0edc146da84a30e8d40a3eabe",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2321.1094140406017,
+        "Y": -185.7132419487609
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "3f400db215714dce81ef206ef61c5da2",
+        "Title": "入力",
+        "Nodes": [
+          "d2fccdbcc23042078c7b021b9146145e",
+          "faeda4cb2a744190a4047060d8e2df26",
+          "1fcae8b367084df58f3949fa1a90b4b8",
+          "410c5e2cefb84db298322feac1f0542b"
+        ],
+        "Left": -113.85730334657501,
+        "Top": -56.447303430077454,
+        "Width": 244.0,
+        "Height": 440.25858576581362,
+        "FontSize": 36.0,
+        "InitialTop": -3.4473034300774543,
+        "InitialHeight": 417.25858576581362,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "c0ed34bf37cc40c988cf3afdcf177695",
+        "Title": "入力\r\n搬入経路線分グループ：グループ化した連続モデル線分\r\nPlace Num：選択したモデル線分上に配置するファミリ数\r\nGlobal Rotation：全配置ファミリに適用される回転角度，いい感じに設定する\r\nFamily Type：配置するファミリのタイプ",
+        "Nodes": [],
+        "Left": -87.5341945790517,
+        "Top": -245.57656821010852,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "e8b306cde2eb4f16ae738f797295395a",
+        "Title": "ⒸYaGitHub",
+        "Nodes": [],
+        "Left": -88.249674766121075,
+        "Top": -368.78996863881019,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "f1f3acd0bfc8488a97d218c537d8969a",
+        "Title": "I'm working on Revit 2019.2 & Dynamo 2.0.3",
+        "Nodes": [],
+        "Left": -88.48437295301062,
+        "Top": -311.49333675531636,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": -1620.0268756054229,
+    "Y": 223.42292825156679,
+    "Zoom": 0.97727038243210451
+  }
+}
